@@ -17,11 +17,6 @@ export default defineComponent({
       required: false,
       default: () => []
     },
-    markersOverlay: {
-      type: Array,
-      required: false,
-      default: () => []
-    }
   },
   setup (props) {
     let map = null
@@ -50,17 +45,11 @@ export default defineComponent({
         attribution: '&copy; Google Maps'
       })
 
-      // Overlays
       const markerLayer = L.layerGroup().addTo(map)
-      const markersOverlay = L.layerGroup().addTo(map)
 
       // Add markers to the markerLayer
       if (props.markers.length) {
         setMarkers(markerLayer, props.markers)
-      }
-
-      if (props.markersOverlay.length) {
-        setMarkers(markersOverlay, props.markersOverlay)
       }
 
       // Add base layers and overlays to the map
@@ -68,7 +57,6 @@ export default defineComponent({
         'Google Maps': googleBaseLayer
       }, {
         'AgricultorA': markerLayer,
-        'AgricultorB': markersOverlay
       }).addTo(map)
     }
 
